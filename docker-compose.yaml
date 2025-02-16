@@ -1,0 +1,25 @@
+# This is optional in newer versions of Docker
+version: "3"
+
+services:
+  nginx-proxy:
+    image: nginx:1.27.4
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - nginx-proxy
+    restart: always
+    volumes:
+      # Store your Cloudflare certificates here and share with containers.
+      - "/home/ec2-user/cloudflare:/etc/cloudflare"
+      # Optional: Allow only Cloudflare to communicate
+      - "./artifacts/allow-cloudflare-only.conf:/etc/nginx/conf.d/allow-cloudflare-only.conf:ro"
+      # Production Containers
+      - "./artifacts/your-website-url.route.conf:/etc/nginx/conf.d/your-website-url.route.conf:ro"
+    # links:
+    #   - wp-barbschwarz
+networks:
+  nginx-proxy:
+    external: true
