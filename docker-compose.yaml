@@ -18,8 +18,8 @@ services:
       - "./artifacts/allow-cloudflare-only.conf:/etc/nginx/conf.d/allow-cloudflare-only.conf:ro"
       # Production Containers
       - "./artifacts/your-website-url.route.conf:/etc/nginx/conf.d/your-website-url.route.conf:ro"
-    # links:
-    #   - wp-barbschwarz
 networks:
   nginx-proxy:
     external: true
+
+
